@@ -1,22 +1,25 @@
-# Maintainer: Your Name <your.email@example.com>
-pkgname=dibi
-pkgver=1.0.0  # Your version
+# Maintainer: NikzoOff <joane.seguin23@gmail.com>
+pkgname=did-i-break-it
+pkgver=0.1.0
 pkgrel=1
-pkgdesc="Dibi or 'Did-I-Break-It' is a simple snapshot tool written in C. It will create a .DIBI file in your $HOME directory and a snapshot direcotry. It'll run basic tests and compare them."
-arch=('x86_64')
-url="https://github.com/yourusername/dibi"  # Your repo
-license=('MIT')  # Or whatever license you use
-depends=('glibc' 'systemd')  # Add your dependencies
-makedepends=('git' 'gcc' 'make')  # Build tools
+pkgdesc="Dibi or 'Did-I-Break-It' is a simple snapshot tool written in C. It will create a .DIBI file in your $HOME directory and a snapshot directory. It'll run basic tests and compare them."
+arch=('x86_64' 'i686' 'aarch64')
+url="https://github.com/NikzoOff/DIBI"
+license=('MIT') 
+depends=('glibc' 'systemd') 
+makedepends=('git' 'gcc' 'make')  
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('SKIP')  # Generate this later
+sha256sums=('SKIP') 
 
 build() {
-    cd "$pkgname-$pkgver"
+    cd "DIBI-$pkgver"
     make
 }
 
 package() {
-    cd "$pkgname-$pkgver"
-    make DESTDIR="$pkgdir/" install
+    cd "DIBI-$pkgver"
+    make PREFIX=/usr DESTDIR="$pkgdir/" install
+    
+    # Install license
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
